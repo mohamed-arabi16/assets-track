@@ -8,11 +8,11 @@ const financialCardVariants = cva(
     variants: {
       variant: {
         default: "bg-card border border-border text-card-foreground",
-        balance: "bg-primary/5 border border-primary/20 text-card-foreground shadow-md",
-        income: "bg-primary/10 border border-primary/30 text-card-foreground shadow-md",
-        expense: "bg-primary/15 border border-primary/40 text-card-foreground shadow-md",
-        debt: "bg-primary/20 border border-primary/50 text-card-foreground shadow-md",
-        asset: "bg-primary/25 border border-primary/60 text-card-foreground shadow-md",
+        balance: "bg-primary/10 border border-primary/30 text-card-foreground shadow-md",
+        income: "bg-income/10 border border-income/30 text-card-foreground shadow-md",
+        expense: "bg-expense/10 border border-expense/30 text-card-foreground shadow-md",
+        debt: "bg-debt/10 border border-debt/30 text-card-foreground shadow-md",
+        asset: "bg-asset/10 border border-asset/30 text-card-foreground shadow-md",
       },
       size: {
         default: "p-6",
