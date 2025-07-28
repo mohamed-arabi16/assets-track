@@ -36,6 +36,18 @@ This is a starter template for a new project with Vite, React, Shadcn, and TypeS
 *   TypeScript
 *   Tailwind CSS
 
+## Environment variables
+
+Create a `.env` file based on `.env.example` and provide your Supabase project
+details:
+
+```bash
+cp .env.example .env
+```
+
+The variables include the Supabase URL and public anon key used by the
+application.
+
 ## License
 
 This project is licensed under the MIT License.

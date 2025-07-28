@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FinancialCard } from "@/components/ui/financial-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,49 +34,71 @@ import {
   Trash2,
   TrendingUp
 } from "lucide-react";
+import { supabase } from "@/lib/supabaseClient";
+
+interface Asset {
+  id: string;
+  type: string;
+  quantity: number;
+  unit: string;
+  price_per_unit: number;
+  currency: string;
+  total_value: number;
+  auto_update: boolean;
+}
 
 // Mock data
-const mockAssets = [
+const mockAssets: Asset[] = [
   {
     id: 1,
     type: "silver",
     quantity: 150,
     unit: "grams",
-    pricePerUnit: 0.85,
+    price_per_unit: 0.85,
     currency: "USD",
-    totalValue: 127.50,
-    autoUpdate: true
+    total_value: 127.5,
+    auto_update: true
   },
   {
     id: 2,
     type: "bitcoin",
     quantity: 0.05,
     unit: "BTC",
-    pricePerUnit: 45000,
+    price_per_unit: 45000,
     currency: "USD", 
-    totalValue: 2250,
-    autoUpdate: true
+    total_value: 2250,
+    auto_update: true
   },
   {
     id: 3,
     type: "real_estate",
     quantity: 1,
     unit: "property",
-    pricePerUnit: 250000,
+    price_per_unit: 250000,
     currency: "USD",
-    totalValue: 250000,
-    autoUpdate: false
+    total_value: 250000,
+    auto_update: false
   }
 ];
 
 export default function Assets() {
-  const [assets, setAssets] = useState(mockAssets);
+  const [assets, setAssets] = useState<Asset[]>(mockAssets);
   const [isAddingAsset, setIsAddingAsset] = useState(false);
 
-  const totalAssetValue = assets.reduce((sum, asset) => sum + asset.totalValue, 0);
-  const silverValue = assets.filter(a => a.type === "silver").reduce((sum, a) => sum + a.totalValue, 0);
-  const cryptoValue = assets.filter(a => a.type === "bitcoin").reduce((sum, a) => sum + a.totalValue, 0);
-  const realEstateValue = assets.filter(a => a.type === "real_estate").reduce((sum, a) => sum + a.totalValue, 0);
+  useEffect(() => {
+    const loadAssets = async () => {
+      const { data } = await supabase.from('assets').select('*');
+      if (data) {
+        setAssets(data as Asset[]);
+      }
+    };
+    loadAssets();
+  }, []);
+
+  const totalAssetValue = assets.reduce((sum, asset) => sum + asset.total_value, 0);
+  const silverValue = assets.filter(a => a.type === "silver").reduce((sum, a) => sum + a.total_value, 0);
+  const cryptoValue = assets.filter(a => a.type === "bitcoin").reduce((sum, a) => sum + a.total_value, 0);
+  const realEstateValue = assets.filter(a => a.type === "real_estate").reduce((sum, a) => sum + a.total_value, 0);
 
   const getAssetIcon = (type: string) => {
     switch (type) {
@@ -235,15 +257,15 @@ export default function Assets() {
                       <div>
                         <CardTitle className="text-lg">{formatAssetType(asset.type)}</CardTitle>
                         <CardDescription>
-                          {asset.quantity} {asset.unit} @ ${asset.pricePerUnit.toLocaleString()}/{asset.unit}
+                          {asset.quantity} {asset.unit} @ ${asset.price_per_unit.toLocaleString()}/{asset.unit}
                         </CardDescription>
                       </div>
                     </div>
                     
                     <div className="flex items-center gap-4">
                       <div className="text-right">
-                        <div className="text-2xl font-bold">${asset.totalValue.toLocaleString()}</div>
-                        {asset.autoUpdate && (
+                        <div className="text-2xl font-bold">${asset.total_value.toLocaleString()}</div>
+                        {asset.auto_update && (
                           <div className="flex items-center gap-1 text-xs text-green-600">
                             <TrendingUp className="h-3 w-3" />
                             Auto-updated
