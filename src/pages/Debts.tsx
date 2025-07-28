@@ -19,6 +19,7 @@ import {
   Edit,
   Trash2
 } from "lucide-react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 // Mock data
 const mockDebts = [
@@ -67,6 +68,7 @@ const mockDebts = [
 export default function Debts() {
   const [debts, setDebts] = useState(mockDebts);
   const [activeTab, setActiveTab] = useState("short");
+  const { formatCurrency } = useCurrency();
 
   const shortTermDebts = debts.filter(debt => debt.type === "short");
   const longTermDebts = debts.filter(debt => debt.type === "long");
@@ -102,7 +104,7 @@ export default function Debts() {
         <FinancialCard
           variant="debt"
           title="Short-Term Debt"
-          value={`$${totalShortTerm.toLocaleString()}`}
+          value={formatCurrency(totalShortTerm)}
           subtitle="Due within 60 days"
           icon={<CreditCard className="h-5 w-5" />}
         />
@@ -110,7 +112,7 @@ export default function Debts() {
         <FinancialCard
           variant="asset"
           title="Long-Term Debt"
-          value={`$${totalLongTerm.toLocaleString()}`}
+          value={formatCurrency(totalLongTerm)}
           subtitle="Extended payment terms"
           icon={<AlertTriangle className="h-5 w-5" />}
         />
@@ -118,7 +120,7 @@ export default function Debts() {
         <FinancialCard
           variant="expense"
           title="Total Pending"
-          value={`$${totalPending.toLocaleString()}`}
+          value={formatCurrency(totalPending)}
           subtitle="Awaiting payment"
           icon={<Clock className="h-5 w-5" />}
         />
@@ -126,7 +128,7 @@ export default function Debts() {
         <FinancialCard
           variant="income"
           title="Total Paid"
-          value={`$${totalPaid.toLocaleString()}`}
+          value={formatCurrency(totalPaid)}
           subtitle="Completed payments"
           icon={<CheckCircle className="h-5 w-5" />}
         />
@@ -187,7 +189,7 @@ export default function Debts() {
                         </Badge>
                       </TableCell>
                       <TableCell className="text-right text-base font-medium text-[#0C1439] dark:text-foreground">
-                        ${debt.amount.toLocaleString()}
+                        {formatCurrency(debt.amount)}
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">
@@ -235,7 +237,7 @@ export default function Debts() {
                         </Badge>
                       </TableCell>
                       <TableCell className="text-right text-base font-medium text-[#0C1439] dark:text-foreground">
-                        ${debt.amount.toLocaleString()}
+                        {formatCurrency(debt.amount)}
                       </TableCell>
                       <TableCell>
                         <div className="flex gap-2">

@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
 import Dashboard from "./pages/Dashboard";
 import Income from "./pages/Income";
 import Debts from "./pages/Debts";
@@ -15,23 +16,25 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AppLayout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/income" element={<Income />} />
-            <Route path="/debts" element={<Debts />} />
-            <Route path="/assets" element={<Assets />} />
-            <Route path="/settings" element={<Settings />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AppLayout>
-      </BrowserRouter>
-    </TooltipProvider>
+    <CurrencyProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppLayout>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/income" element={<Income />} />
+              <Route path="/debts" element={<Debts />} />
+              <Route path="/assets" element={<Assets />} />
+              <Route path="/settings" element={<Settings />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AppLayout>
+        </BrowserRouter>
+      </TooltipProvider>
+    </CurrencyProvider>
   </QueryClientProvider>
 );
 

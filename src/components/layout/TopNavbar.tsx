@@ -13,9 +13,10 @@ import {
   DollarSign
 } from "lucide-react";
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export function TopNavbar() {
-  const [currency, setCurrency] = useState("USD");
+  const { currency, setCurrency } = useCurrency();
   const [theme, setTheme] = useState("light");
   const [selectedMonth, setSelectedMonth] = useState("2025-01");
 

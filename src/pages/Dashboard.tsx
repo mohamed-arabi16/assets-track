@@ -7,8 +7,10 @@ import {
   Gem,
   Calendar
 } from "lucide-react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export default function Dashboard() {
+  const { formatCurrency } = useCurrency();
   return (
     <div className="p-6 space-y-6 bg-gradient-dashboard min-h-screen">
       {/* Page Header */}
@@ -24,7 +26,7 @@ export default function Dashboard() {
         <FinancialCard
           variant="balance"
           title="Available Balance"
-          value="$12,450.00"
+          value={formatCurrency(12450)}
           subtitle="Ready to spend"
           icon={<DollarSign className="h-5 w-5" />}
           trend={{
@@ -36,7 +38,7 @@ export default function Dashboard() {
         <FinancialCard
           variant="income"
           title="Expected Income"
-          value="$8,500.00"
+          value={formatCurrency(8500)}
           subtitle="Next 30 days"
           icon={<TrendingUp className="h-5 w-5" />}
           trend={{
@@ -48,7 +50,7 @@ export default function Dashboard() {
         <FinancialCard
           variant="expense"
           title="Monthly Expenses"
-          value="$3,200.00"
+          value={formatCurrency(3200)}
           subtitle="Recurring + one-time"
           icon={<TrendingDown className="h-5 w-5" />}
           trend={{
@@ -60,7 +62,7 @@ export default function Dashboard() {
         <FinancialCard
           variant="debt"
           title="Short-term Debt"
-          value="$1,800.00"
+          value={formatCurrency(1800)}
           subtitle="Due within 60 days"
           icon={<CreditCard className="h-5 w-5" />}
           trend={{
@@ -72,7 +74,7 @@ export default function Dashboard() {
         <FinancialCard
           variant="asset"
           title="Asset Value"
-          value="$45,200.00"
+          value={formatCurrency(45200)}
           subtitle="Silver, crypto, etc."
           icon={<Gem className="h-5 w-5" />}
           trend={{
@@ -83,7 +85,7 @@ export default function Dashboard() {
         
         <FinancialCard
           title="Net Worth"
-          value="$55,850.00"
+          value={formatCurrency(55850)}
           subtitle="Total assets - debts"
           icon={<Calendar className="h-5 w-5" />}
           trend={{
