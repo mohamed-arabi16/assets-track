@@ -144,7 +144,7 @@ export default function Debts() {
         <div className="p-6">
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <div className="flex gap-2 border rounded-lg bg-[#E9F4F4] dark:bg-muted p-1 w-fit">
+            <TabsList className="grid w-fit grid-cols-2 bg-[#E9F4F4] dark:bg-muted">
               <TabsTrigger 
                 value="short" 
                 className="data-[state=active]:bg-white data-[state=active]:text-[#0C1439] data-[state=active]:font-semibold data-[state=active]:shadow"
@@ -157,7 +157,7 @@ export default function Debts() {
               >
                 Long-Term Debt
               </TabsTrigger>
-            </div>
+            </TabsList>
 
             <TabsContent value="short" className="mt-6">
               <Table>
