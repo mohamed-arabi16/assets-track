@@ -43,8 +43,8 @@ export function TopNavbar() {
     document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/signin");
   };
 
